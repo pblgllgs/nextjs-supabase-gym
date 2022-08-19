@@ -41,37 +41,37 @@ const Create = () => {
     <>
       <div className={styles.container}>
         <div className={styles.form}>
-          <p className={styles.title}>Create a New Workout</p>
-          <label className={styles.label}>Title:</label>
+          <p className={styles.title}>Crear un nuevo ejercicio</p>
+          <label className={styles.label}>Ejercicio:</label>
           <input
             type="text"
             name="title"
             value={title}
             onChange={handleChange}
             className={styles.input}
-            placeholder="Enter a title"
+            placeholder="Ingresa un ejercicio"
           />
-          <label className={styles.label}>Load (kg):</label>
+          <label className={styles.label}>Carga (kg):</label>
           <input
             type="text"
             name="loads"
             value={loads}
             onChange={handleChange}
             className={styles.input}
-            placeholder="Enter weight load"
+            placeholder="Ingresa un peso de carga"
           />
-          <label className={styles.label}>Reps:</label>
+          <label className={styles.label}>Repeticiones:</label>
           <input
             type="text"
             name="reps"
             value={reps}
             onChange={handleChange}
             className={styles.input}
-            placeholder="Enter number of reps"
+            placeholder="Ingresa un número de repeticiones"
           />
 
           <button className={styles.button} onClick={createWorkout}>
-            Create Workout
+            Crear Ejercicio
           </button>
         </div>
       </div>

@@ -5,8 +5,8 @@ import Swal from "sweetalert2";
 
 const Signup = () => {
   const initialState = {
-    email: "pablogallegosgonzalez@gmail.com",
-    password: "123456",
+    email: "",
+    password: "",
   };
 
   const [form, setForm] = useState(initialState);
@@ -25,7 +25,7 @@ const Signup = () => {
           name="email"
           onChange={handleChange}
           className={styles.input}
-          placeholder="Enter your email"
+          placeholder="Ingresa tu email"
         />
         <input
           type="password"
@@ -33,7 +33,7 @@ const Signup = () => {
           name="password"
           onChange={handleChange}
           className={styles.input}
-          placeholder="Enter your password"
+          placeholder="Ingresa tu password"
         />
         <button
           onClick={async () => {
@@ -43,12 +43,15 @@ const Signup = () => {
             });
 
             if (error) console.log(error.message);
-            Swal.fire("success", "Check your email for the login link!");
+            Swal.fire(
+              "Registro exitoso!!",
+              "Revisa tu correo y activa tu cuenta!, 'success'",
+            );
             setForm(initialState);
           }}
           className={styles.button}
         >
-          Sign up
+          Crear cuenta
         </button>
       </div>
     </div>

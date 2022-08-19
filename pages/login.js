@@ -8,8 +8,8 @@ import { ACTION_TYPE, Authcontext } from "../context/authContext";
 const Login = () => {
   const { dispatch } = useContext(Authcontext);
   const initialState = {
-    email: "pablogallegosgonzalez@gmail.com",
-    password: "123456",
+    email: "",
+    password: "",
   };
 
   const router = useRouter();
@@ -35,14 +35,17 @@ const Login = () => {
       localStorage.setItem("isAuthenticated", true);
       Swal.fire("Bienvenido", "Entrena muy constante", "success");
       if (error) {
-        Swal.fire("error", error.message);
+        Swal.fire("Error", "Credenciales incorrectas", "error");
+        router.push("/login");
+        return;
       }
+      router.push("/");
     } catch (error) {
       console.log(error);
       Swal.fire("error", error.message);
+      router.push("/login");
     }
     // push to home page
-    router.push("/");
   };
 
   return (
@@ -54,7 +57,7 @@ const Login = () => {
           name="email"
           onChange={handleChange}
           className={styles.input}
-          placeholder="Enter your email"
+          placeholder="Ingresa tu email"
         />
         <input
           type="password"
@@ -62,10 +65,10 @@ const Login = () => {
           name="password"
           onChange={handleChange}
           className={styles.input}
-          placeholder="Enter your password"
+          placeholder="Ingresa tu password"
         />
         <button onClick={handleLogin} className={styles.button}>
-          Log In
+          Iniciar sesión
         </button>
       </div>
     </div>

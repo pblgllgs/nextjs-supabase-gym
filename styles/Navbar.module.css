@@ -22,7 +22,19 @@
   cursor: pointer;
 }
 
-.buttons {
+.btnSignup {
+  border: 1px solid #f35815;
+  background-color: transparent;
+  color: #d8d8d8;
+  padding: 0.5rem 2rem;
+  border-radius: 0.4rem;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  margin-right: 1.5rem;
+}
+
+.btnLoginLogout {
+  margin-left: 20px;
   border: 1px solid #f35815;
   background-color: transparent;
   color: #d8d8d8;
