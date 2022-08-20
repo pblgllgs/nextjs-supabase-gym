@@ -2,7 +2,8 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import styles from "../../styles/Edit.module.css";
 import { supabase } from "../../utils/supabase";
-import toast from "react-hot-toast";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Edit = () => {
   const [workout, setWorkout] = useState(null);
@@ -42,12 +43,22 @@ const Edit = () => {
       })
       .eq("id", id)
       .eq("user_id", user?.id);
-    toast("Workout updated successfully");
+    toast.success("Actualización exitosa!", {
+      position: "bottom-right",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "dark",
+    });
 
     router.push("/");
   };
   return (
     <div className={styles.container}>
+      <ToastContainer />
       <div className={styles.formContainer}>
         <h1 className={styles.title}>Edit Workout</h1>
         <label className={styles.label}> Title:</label>
