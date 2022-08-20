@@ -1,8 +1,8 @@
-import { supabase } from "../utils/supabase";
+import { supabase } from "../../utils/supabase";
 import { useState } from "react";
-import styles from "../styles/Create.module.css";
-import { useRouter } from "next/router";
-import toast from "react-hot-toast";
+import styles from "../../styles/Create.module.css";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Create = () => {
   const initialState = {
@@ -11,7 +11,6 @@ const Create = () => {
     reps: "",
   };
 
-  const router = useRouter();
   const [workoutData, setWorkoutData] = useState(initialState);
 
   const { title, loads, reps } = workoutData;
@@ -22,7 +21,6 @@ const Create = () => {
 
   const createWorkout = async () => {
     const user = supabase.auth.user();
-
     await supabase
       .from("workouts")
       .insert({
@@ -32,13 +30,22 @@ const Create = () => {
         user_id: user?.id,
       })
       .single();
-    toast("Workout created successfully");
+    toast.success("Creación exitosa!", {
+      position: "bottom-right",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "dark",
+    });
     setWorkoutData(initialState);
-    router.push("/");
   };
 
   return (
     <>
+      <ToastContainer />
       <div className={styles.container}>
         <div className={styles.form}>
           <p className={styles.title}>Crear un nuevo ejercicio</p>

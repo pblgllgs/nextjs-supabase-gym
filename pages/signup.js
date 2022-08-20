@@ -5,8 +5,8 @@ import Swal from "sweetalert2";
 
 const Signup = () => {
   const initialState = {
-    email: "",
-    password: "",
+    email: "tk.leftraru@gmail.com",
+    password: "123456",
   };
 
   const [form, setForm] = useState(initialState);
@@ -41,12 +41,12 @@ const Signup = () => {
               email,
               password,
             });
-
-            if (error) console.log(error.message);
             Swal.fire(
               "Registro exitoso!!",
-              "Revisa tu correo y activa tu cuenta!, 'success'",
+              "Revisa tu correo y activa tu cuenta!",
+              "success",
             );
+            if (error) console.log(error.message);
             setForm(initialState);
           }}
           className={styles.button}

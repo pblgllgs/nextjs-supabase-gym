@@ -1,39 +1,31 @@
 import Head from "next/head";
 import Link from "next/link";
-import { useEffect, useState, useContext } from "react";
+import { useEffect, useState } from "react";
 import styles from "../styles/Home.module.css";
 import { supabase } from "../utils/supabase";
 import WorkoutCard from "../components/WorkoutCard";
-import toast from "react-hot-toast";
-import { ACTION_TYPE, Authcontext } from "../context/authContext";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function Home({ session }) {
-  const { dispatch } = useContext(Authcontext);
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    const token = localStorage.getItem("supabase.auth.token") || "";
-    if (token) {
+    if (session) {
       setLoading(true);
       fetchWorkouts();
       setLoading(false);
-      dispatch({
-        type: ACTION_TYPE.LOGIN,
-        payload: true,
-      });
     }
-  }, [dispatch]);
+  }, [session]);
 
   const fetchWorkouts = async () => {
     try {
       const user = supabase.auth.user();
-      setLoading(true);
       const { data, error } = await supabase
         .from("workouts")
         .select("*")
         .eq("user_id", user?.id);
-
       if (error) throw error;
       setData(data);
     } catch (error) {
@@ -54,8 +46,17 @@ export default function Home({ session }) {
         .eq("id", id)
         .eq("user_id", user?.id);
       fetchWorkouts();
+      toast.success("Eliminación exitosa!", {
+        position: "bottom-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      });
       if (error) throw error;
-      toast("Workout deleted successfully");
     } catch (error) {
       alert(error.message);
     }
@@ -69,6 +70,7 @@ export default function Home({ session }) {
       </Head>
 
       <div className={styles.home}>
+        <ToastContainer />
         {!session?.user ? (
           <div>
             <p>
@@ -81,10 +83,15 @@ export default function Home({ session }) {
             <p className={styles.workoutHeading}>
               Hola!! <span className={styles.email}>{session.user.email}</span>
             </p>
+            {session.user.id === "44436d98-900e-49f3-9b3b-577d8c23aaf4" && (
+              <Link href="/admin/">
+                <a>Dashboard</a>
+              </Link>
+            )}
             {data?.length === 0 ? (
               <div className={styles.noWorkout}>
                 <p>Tu no tienes ejercicios por realizar</p>
-                <Link href="/create">
+                <Link href="/create/">
                   <button className={styles.button}> Crear una tarea</button>
                 </Link>
               </div>

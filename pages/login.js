@@ -4,12 +4,13 @@ import styles from "../styles/Login.module.css";
 import { supabase } from "../utils/supabase";
 import Swal from "sweetalert2";
 import { ACTION_TYPE, Authcontext } from "../context/authContext";
+import Cookies from "cookies-js";
 
 const Login = () => {
   const { dispatch } = useContext(Authcontext);
   const initialState = {
-    email: "",
-    password: "",
+    email: "tk.leftraru@gmail.com",
+    password: "123456",
   };
 
   const router = useRouter();
@@ -32,6 +33,9 @@ const Login = () => {
         type: ACTION_TYPE.LOGIN,
         payload: true,
       });
+      const user = supabase.auth.user();
+      Cookies.set("aud", user.aud);
+      Cookies.set("id", user.id);
       localStorage.setItem("isAuthenticated", true);
       Swal.fire("Bienvenido", "Entrena muy constante", "success");
       if (error) {
