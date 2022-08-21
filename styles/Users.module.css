@@ -7,6 +7,19 @@
   align-items: center;
 }
 
+.opciones{
+  justify-content: space-between;
+}
+
+.containerUsersPage {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: baseline;
+  align-items: center;
+}
+
 .containerUsers {
   width: 100%;
   height: 10;
@@ -14,6 +27,20 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+.li{
+  flex-direction: row;
+}
+
+.users{
+width: 100%;
+  height: 10;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: white;
 }
 
 .titleUsers{
@@ -26,7 +53,7 @@
   justify-content: center;
   align-items: left;
   width: 22rem;
-  height: 30rem;
+  height: 35rem;
   border: 1px solid #d8d8d8;
   border-radius: 0.4rem;
   padding-left: 2rem;
@@ -43,7 +70,7 @@
 }
 
 .text {
-  font-size: 1rem;
+  margin-top: 2rem;
   color: #f35815;
 }
 

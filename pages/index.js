@@ -54,7 +54,7 @@ export default function Home({ session }) {
         pauseOnHover: true,
         draggable: true,
         progress: undefined,
-        theme: "dark",
+        theme: "colored",
       });
       if (error) throw error;
     } catch (error) {
@@ -84,9 +84,11 @@ export default function Home({ session }) {
               Hola!! <span className={styles.email}>{session.user.email}</span>
             </p>
             {session.user.id === "44436d98-900e-49f3-9b3b-577d8c23aaf4" && (
-              <Link href="/admin/">
-                <a>Dashboard</a>
-              </Link>
+              <div className={styles.dashboardWrapper}>
+                <Link href="/admin/">
+                  <button className={styles.button}>Dashboard</button>
+                </Link>
+              </div>
             )}
             {data?.length === 0 ? (
               <div className={styles.noWorkout}>

@@ -9,6 +9,10 @@
 }
 .text {
   margin-top: 2rem;
+  color: #f35815;
+}
+.text2 {
+  font-size: 1rem;
 }
 
 .repo {

@@ -3,9 +3,10 @@ import { supabase } from "../utils/supabase";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import styles from "../styles/CreateTask.module.css";
+import Link from "next/link";
 
 const CreateTask = () => {
-  const [isSelected, setIsSelected] = useState(null);
+  const [userSelected, setUserSelected] = useState(null);
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
@@ -39,13 +40,37 @@ const CreateTask = () => {
   };
 
   const createWorkout = async () => {
+    let msg = "";
+    if (title === "") {
+      msg = `title, `;
+    }
+    if (loads === "") {
+      msg = `${msg} loads,`;
+    }
+    if (reps === "") {
+      msg = `${msg} reps`;
+    }
+    if (msg !== "") {
+      toast.error(`Complete los campos ${msg}`, {
+        position: "bottom-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
+      return;
+    }
     await supabase
       .from("workouts")
       .insert({
         title,
         loads,
         reps,
-        user_id: isSelected,
+        user_email: userSelected.email,
+        user_id: userSelected.id,
       })
       .single();
     toast.success("Creación exitosa!", {
@@ -56,35 +81,41 @@ const CreateTask = () => {
       pauseOnHover: true,
       draggable: true,
       progress: undefined,
-      theme: "dark",
+      theme: "colored",
     });
   };
 
-  const handleUser = ({ id }) => {
-    setIsSelected(id);
+  const handleUser = (user) => {
+    setUserSelected(user);
   };
-
   return (
     <>
       <div className={styles.containerUsers}>
-        <h1 className={styles.titleUsers}>Usuarios</h1>
+        <Link href={"/admin/users"}>
+          <h1 className={styles.titleUsers}>Usuarios</h1>
+        </Link>
+        <h1 className={styles.text}>Selecciona un usuario para comenzar</h1>
         <ul>
-          {users.map((user) => {
+          {users.map((user, idx) => {
             return (
-              <li key={user.id}>
-                <button onClick={() => handleUser(user)}>{user.email}</button>
+              <li key={idx}>
+                <button
+                  className={styles.button}
+                  onClick={() => handleUser(user)}
+                >
+                  {user.email}
+                </button>
               </li>
             );
           })}
         </ul>
       </div>
       <ToastContainer />
-      {isSelected && (
+      {userSelected && (
         <div className={styles.container}>
           <div className={styles.form}>
-            <p className={styles.title}>
-              Crear un nuevo ejercicio para {isSelected.email}
-            </p>
+            <p className={styles.title}>Crear un nuevo ejercicio para</p>
+            <div className={styles.email}>{userSelected.email}</div>
             <label className={styles.label}>Ejercicio:</label>
             <input
               type="text"
@@ -113,7 +144,7 @@ const CreateTask = () => {
               placeholder="Ingresa un número de repeticiones"
             />
 
-            <button className={styles.button} onClick={createWorkout}>
+            <button className={styles.buttonCrear} onClick={createWorkout}>
               Crear Ejercicio
             </button>
           </div>

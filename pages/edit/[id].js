@@ -51,7 +51,7 @@ const Edit = () => {
       pauseOnHover: true,
       draggable: true,
       progress: undefined,
-      theme: "dark",
+      theme: "colored",
     });
 
     router.push("/");
