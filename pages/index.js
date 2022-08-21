@@ -6,6 +6,7 @@ import { supabase } from "../utils/supabase";
 import WorkoutCard from "../components/WorkoutCard";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Image from "next/image";
 
 export default function Home({ session }) {
   const [data, setData] = useState([]);
@@ -73,9 +74,17 @@ export default function Home({ session }) {
         <ToastContainer />
         {!session?.user ? (
           <div>
-            <p>
-              Welcome to Adrenargy. Kindly Login to your account or sign in for
-              a demo
+            <div className={styles.imgWrapper}>
+              <Image
+                src="https://res.cloudinary.com/pblgllgs/image/upload/v1661099967/gym/Home_qhd8c0.jpg"
+                alt="home-image"
+                width={400}
+                height={400}
+              />
+            </div>
+            <p className={styles.titleHome}>
+              Bienvenido!! Registrate, inicia sesión y comienza con tú
+              entrenamiento!!
             </p>
           </div>
         ) : (

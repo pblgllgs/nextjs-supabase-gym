@@ -6,7 +6,13 @@ import styles from "../styles/CreateTask.module.css";
 import Link from "next/link";
 
 const CreateTask = () => {
-  const [userSelected, setUserSelected] = useState(null);
+  const initialStateUser = {
+    id: "",
+    email: "",
+    name: "",
+  };
+  const [userSelected, setUserSelected] = useState(initialStateUser);
+
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
@@ -85,37 +91,44 @@ const CreateTask = () => {
     });
   };
 
-  const handleUser = (user) => {
-    setUserSelected(user);
+  const handlechangeSelect = async (e) => {
+    const seleccionado = users.find((user) => {
+      return user.id === e.target.value;
+    });
+    setUserSelected(seleccionado);
   };
+
   return (
     <>
-      <div className={styles.containerUsers}>
-        <Link href={"/admin/users"}>
-          <h1 className={styles.titleUsers}>Usuarios</h1>
-        </Link>
-        <h1 className={styles.text}>Selecciona un usuario para comenzar</h1>
-        <ul>
-          {users.map((user, idx) => {
-            return (
-              <li key={idx}>
-                <button
-                  className={styles.button}
-                  onClick={() => handleUser(user)}
-                >
+      {userSelected.id === "" && (
+        <div className={styles.containerUsers}>
+          <Link href={"/admin/users"}>
+            <h1 className={styles.titleUsers}>Usuarios</h1>
+          </Link>
+          <h1 className={styles.text}>Selecciona un usuario para comenzar</h1>
+          <select
+            value={userSelected.id}
+            name="id"
+            onChange={handlechangeSelect}
+          >
+            <option>Selecciona un usuario</option>
+            {users.map((user, index) => {
+              return (
+                <option key={index} value={user.id}>
                   {user.email}
-                </button>
-              </li>
-            );
-          })}
-        </ul>
-      </div>
+                </option>
+              );
+            })}
+          </select>
+        </div>
+      )}
+
       <ToastContainer />
-      {userSelected && (
+      {userSelected.id !== "" && (
         <div className={styles.container}>
           <div className={styles.form}>
             <p className={styles.title}>Crear un nuevo ejercicio para</p>
-            <div className={styles.email}>{userSelected.email}</div>
+            <div className={styles.email}>{userSelected.name}</div>
             <label className={styles.label}>Ejercicio:</label>
             <input
               type="text"

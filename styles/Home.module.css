@@ -6,6 +6,17 @@
   align-items: center;
 }
 
+.titleHome{
+  text-align: center;
+}
+
+.imgWrapper{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 3rem;
+}
+
 .home {
   display: flex;
   flex-direction: column;

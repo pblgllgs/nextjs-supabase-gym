@@ -28,6 +28,7 @@ const Create = () => {
         loads,
         reps,
         user_id: user?.id,
+        user_email: user.email,
       })
       .single();
     toast.success("Creación exitosa!", {
