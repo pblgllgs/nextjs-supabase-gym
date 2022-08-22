@@ -156,10 +156,11 @@ const CreateTask = () => {
               className={styles.input}
               placeholder="Ingresa un número de repeticiones"
             />
-
-            <button className={styles.buttonCrear} onClick={createWorkout}>
-              Crear Ejercicio
-            </button>
+            <div className={styles.buttonWrapper}>
+              <button className={styles.buttonCrear} onClick={createWorkout}>
+                Crear Ejercicio
+              </button>
+            </div>
           </div>
         </div>
       )}

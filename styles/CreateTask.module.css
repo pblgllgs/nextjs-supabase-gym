@@ -91,6 +91,13 @@
   margin-bottom: 1rem;
 }
 
+.buttonWrapper{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-right: 2rem;
+}
+
 .button:hover {
   transform: scale(1.1);
 }
